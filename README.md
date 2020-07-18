@@ -17,7 +17,7 @@ You can run the Python or Ruby script by simply double clicking on it or going i
 To run the Node.js script, you will have to use the command-line.
 
 ```sh
-$ cd Website-Finder
+$ cd Website-Finder/Node.js
 $ node index.js
 ```
 
@@ -53,7 +53,3 @@ A: As far as I am aware, nope! However, the reports are generated differently de
 
 Q: Why does the "-m" argument defaults to "http" rather than "https"?  
 A: Requests in "http" receive more status codes than error codes compared to "https". I suspect it's because some websites don't support "https" very well, even in the current year.
-
-## TO DO
-
-- Add more languages.
