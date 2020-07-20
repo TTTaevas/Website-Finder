@@ -1,6 +1,6 @@
 # Website-Finder
 
-Website-Finder is a collection of light scripts written in various programming languages without the need for external libraries that finds websites of all sorts for you and make reports of that in the form of automatically generated text files.
+Website-Finder is a collection of light scripts written in various programming languages without the need for external libraries that finds websites of all sorts for you and make reports of that in the form of automatically generated json files.
 
 ## REQUIREMENTS
 
@@ -53,3 +53,7 @@ A: As far as I am aware, nope! However, the reports are generated differently de
 
 Q: Why does the "-m" argument defaults to "http" rather than "https"?  
 A: Requests in "http" receive more status codes than error codes compared to "https". I suspect it's because some websites don't support "https" very well, even in the current year.
+
+## TO DO
+
+Second-level domains
