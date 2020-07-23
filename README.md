@@ -29,18 +29,24 @@ No matter which script, if you wish to use arguments, you are required to use th
 - "-d" defines all the top-level domains the URLs will use, separated only by a ",".
 - "-m" defines the application protocol used. Multiple protocols can be defined by separating them with a ",".
 - "-l" defines by whether or not it is present whether or not all URLs will be logged in the command-line.
+- "-s" defines how likely it will be that the URLs feature a second level domain, <=0 being impossible and >=100 being always.
+- "-MIN" defines the minimum length of the URLs.
+- "-MAX" defines the maximul length of the URLs.
 
 * "-t" defaults to 3000.
 * "-d" defaults to a lot of popular top-level domains.
 * "-m" defaults to "http".
 * "-l" makes it so URLs will be logged.
+* "-s" defaults to 1.
+* "-MIN" defaults to 2.
+* "-MAX" defaults to 50.
 
 ```sh
 # To make the Python script go through 3000 URLs in HTTP with various top-level domains without logging:
 $ index.py
 
-# To make the Ruby script go through 500 URLs in HTTP and HTTPS with only the .com and .fr top-level domains with logging:
-$ index.rb -t 500 -m http,https -l -d .com,.fr
+# To make the Ruby script go through 500 URLs of min length 5 and max length 7 in HTTP and HTTPS with only the .com and .fr top-level domains with a 30% chance for each URL to feature a second level domain with logging:
+$ index.rb -MAX 7 -t 500 -MIN 5 -m http,https -l -s 30 -d .com,.fr
 
 # To make the Node.js script go through 3000 URLs in HTTPS with various top-level domains with logging:
 $ node index.js -m https -l
@@ -53,7 +59,3 @@ A: As far as I am aware, nope! However, the reports are generated differently de
 
 Q: Why does the "-m" argument defaults to "http" rather than "https"?  
 A: Requests in "http" receive more status codes than error codes compared to "https". I suspect it's because some websites don't support "https" very well, even in the current year.
-
-## TO DO
-
-Second-level domains
