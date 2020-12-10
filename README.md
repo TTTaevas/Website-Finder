@@ -1,6 +1,8 @@
 # Website-Finder
 
-Website-Finder is a collection of light scripts written in various programming languages without the need for external libraries that finds websites of all sorts for you and make reports of that in the form of automatically generated json files.
+Website-Finder is a collection of light scripts written in various programming languages without the need for external libraries that finds websites of all sorts for you and make reports of that either in the form of automatically generated json files or in the form of a webpage.
+
+Keep in mind that this software will find ANY website that exists, no matter how morally wrong it may be. It may also (on purpose) find websites which are hosted by a server that simply doesn't reply to requests.
 
 ## REQUIREMENTS
 
@@ -9,6 +11,7 @@ Each script has its own requirements.
 * index.py, the Python script, requires [Python 3](https://www.python.org/downloads/)
 * index.js, the Node.js script, requires [Node.js](https://nodejs.org/en/download/)
 * index.rb, the Ruby script, requires [Ruby](https://rubyinstaller.org/downloads/)
+* index.html, the Javascript script within a HTML webpage, only requires a web browser
 
 ## HOW TO RUN
 
@@ -21,9 +24,13 @@ $ cd Website-Finder/Node.js
 $ node index.js
 ```
 
-No matter which script, if you wish to use arguments, you are required to use the command line in order to launch the script with arguments.
+For the Javascript script, you only need to run the HTML file into your web browser, by either double-clicking it or by dragging the file into it.
 
 ## ARGUMENTS
+
+JAVASCRIPT CURRENTLY DOESN'T HANDLE ARGUMENTS
+
+No matter which script, if you wish to use arguments, you are required to use the command line in order to launch the script with arguments.
 
 - "-t" defines the number of URLs the script will go through.
 - "-d" defines all the top-level domains the URLs will use, separated only by a ",".
@@ -57,5 +64,5 @@ $ node index.js -m https -l
 Q: Is there a script that is better than the other?  
 A: As far as I am aware, nope! However, the reports are generated differently depending of the script and some websites send different codes depending of the script.
 
-Q: Why does the "-m" argument defaults to "http" rather than "https"?  
+Q: Why does the "-m" argument default to "http" rather than "https"?  
 A: Requests in "http" receive more status codes than error codes compared to "https". I suspect it's because some websites don't support "https" very well, even in the current year.
