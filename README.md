@@ -24,7 +24,12 @@ $ cd Website-Finder/Node.js
 $ node index.js
 ```
 
-For the Javascript script, you only need to run the HTML file into your web browser, by either double-clicking it or by dragging the file into it.
+For the Javascript script, you can: 
+
+* Run the HTML file into your web browser, by either double-clicking it or by dragging the file into it
+* Visit that same file hosted on [GitHub Pages](https://tttaevas.github.io/Website-Finder/Javascript/index.html)
+
+In both cases, I *personally* recommend using the [NoScript extension](https://noscript.net/), just in case for your satefy, so only the JS file used to find websites is executed, and nothing gets executed from the websites it finds. I'm no security expert so that may be useless as no JS should get executed from other websites in the first place, but hey, better safe than sorry. 
 
 ## ARGUMENTS
 
