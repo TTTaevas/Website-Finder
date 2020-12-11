@@ -7,7 +7,7 @@ body {
 	display: flex;
 }
 
-button {
+input[type="button"] {
 	padding: 40px;
 	margin: 10px;
 	font-size: 50px;
@@ -17,6 +17,14 @@ button {
 	width: 40%;
 	border: solid 1px;
 	margin-right: 10%;
+}
+
+form {
+	display: grid;
+}
+
+form * {
+	margin: 2px 20px;
 }
 
 #list {

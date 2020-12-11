@@ -33,9 +33,7 @@ In both cases, I *personally* recommend using the [NoScript extension](https://n
 
 ## ARGUMENTS
 
-JAVASCRIPT CURRENTLY DOESN'T HANDLE ARGUMENTS
-
-No matter which script, if you wish to use arguments, you are required to use the command line in order to launch the script with arguments.
+Unless you're using the Javascript script, if you wish to use arguments, you are required to use the command line in order to launch the script with arguments.
 
 - "-t" defines the number of URLs the script will go through.
 - "-d" defines all the top-level domains the URLs will use, separated only by a ",".
@@ -52,6 +50,8 @@ No matter which script, if you wish to use arguments, you are required to use th
 * "-s" defaults to 1.
 * "-MIN" defaults to 2.
 * "-MAX" defaults to 50.
+
+Using arguments with the Javascript script is simple, as you can enter values in labeled fields. Leaving those fields empty will make the script use the default values.
 
 ```sh
 # To make the Python script go through 3000 URLs in HTTP with various top-level domains without logging:
