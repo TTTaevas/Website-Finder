@@ -1,17 +1,28 @@
 * {
 	text-align: center;
+	font-family: sans-serif;
+}
+
+body {
+	display: flex;
 }
 
 button {
 	padding: 40px;
-	margin: 50px;
+	margin: 10px;
 	font-size: 50px;
 }
 
+#rest {
+	width: 40%;
+	border: solid 1px;
+	margin-right: 10%;
+}
+
 #list {
+	flex: auto;
+	width: 600px;
 	height: 500px;
-	padding: 20px;
-	margin: 10px 100px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: black;
