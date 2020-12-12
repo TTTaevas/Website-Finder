@@ -36,7 +36,7 @@ function findWebsites() {
 	const times = document.getElementById("times").value ? Math.round(Number(document.getElementById("times").value)) : 3000
 	const domains = document.getElementById("domains").value ? document.getElementById("domains").value.split(", ") : ['.co', '.com', '.net', '.edu', '.gov', '.cn', '.org', '.cc', '.us', '.mil', '.ac', '.it', '.de']
 	const second = document.getElementById("second").value ? Math.round(Number(document.getElementById("second").value)) : 1
-	const mode = document.getElementById("mode").value ? document.getElementById("mode").value.split(", ") : ['http', 'https']
+	const mode = document.getElementById("mode").value ? document.getElementById("mode").value.split(", ") : ['https']
 	const mini = document.getElementById("mini").value ? Math.round(Number(document.getElementById("mini").value)) : 2
 	const maxi = document.getElementById("maxi").value ? Math.round(Number(document.getElementById("maxi").value)) : 50
 

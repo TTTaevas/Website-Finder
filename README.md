@@ -45,7 +45,7 @@ Unless you're using the Javascript script, if you wish to use arguments, you are
 
 * "-t" defaults to 3000.
 * "-d" defaults to a lot of popular top-level domains.
-* "-m" defaults to "http".
+* "-m" defaults to "http", but the Javascript script defaults to "https" due to [requests made with the "http" application protocol being blocked when not run locally](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content).
 * "-l" makes it so URLs will be logged.
 * "-s" defaults to 1.
 * "-MIN" defaults to 2.
