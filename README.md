@@ -11,7 +11,7 @@ Each script has its own requirements.
 * index.py, the Python script, requires [Python 3](https://www.python.org/downloads/)
 * index.js, the Node.js script, requires [Node.js](https://nodejs.org/en/download/)
 * index.rb, the Ruby script, requires [Ruby](https://rubyinstaller.org/downloads/)
-* index.html, the Javascript script within a HTML webpage, only requires a web browser
+* index.html, the Javascript script within a HTML webpage, only requires a web browser supporting [JS](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript)
 
 ## HOW TO RUN
 
@@ -29,11 +29,11 @@ For the Javascript script, you can:
 * Run the HTML file into your web browser, by either double-clicking it or by dragging the file into it
 * Visit that same file hosted on [GitHub Pages](https://tttaevas.github.io/Website-Finder/Javascript/index.html)
 
-In both cases, I *personally* recommend using the [NoScript extension](https://noscript.net/), just in case for your satefy, so only the JS file used to find websites is executed, and nothing gets executed from the websites it finds. I'm no security expert so that may be useless as no JS should get executed from other websites in the first place, but hey, better safe than sorry. 
+Please keep in mind that **any website that this software finds can contain dangerous resources, therefore please proceed with caution, [update your web browser](https://www.whatismybrowser.com/), use an [adblocker](https://ublockorigin.com/) and [check the URL](https://www.virustotal.com/gui/home/url) for anything dangerous.** I am not responsible for anything my software finds for you.
 
 ## ARGUMENTS
 
-Unless you're using the Javascript script, if you wish to use arguments, you are required to use the command line in order to launch the script with arguments.
+You can use arguments by launching the scripts through the command-line.
 
 - "-t" defines the number of URLs the script will go through.
 - "-d" defines all the top-level domains the URLs will use, separated only by a ",".
@@ -63,6 +63,12 @@ $ index.rb -MAX 7 -t 500 -MIN 5 -m http,https -l -s 30 -d .com,.fr
 # To make the Node.js script go through 3000 URLs in HTTPS with various top-level domains with logging:
 $ node index.js -m https -l
 ```
+
+## REPORTS
+
+Once a script is done running, it will generate a .json report in its folder.
+
+The Javascript script generates the report in real-time on the webpage, in the black box on the right side of the screen.
 
 ## FAQ
 
