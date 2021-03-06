@@ -10,14 +10,14 @@
 		<div id="rest">
 			<h1>WEBSITE-FINDER</h1>
 			<form>
-				<input type="button" onclick="findWebsites()" value="Find websites!">
+				<input type="button" id="btn" onclick="findWebsites()" value="Find websites!">
 				<label>Number of URLs to check:</label>
 				<input type="number" id="times" value="3000">
 				<label>Domains to check (separated with commas):</label>
 				<input type="text" id="domains" value=".co, .com, .net, .edu, .gov, .cn, .org, .cc, .us, .mil, .ac, .it, .de">
 				<label>Chances out of 100 for a URL to have two domains:</label>
 				<input type="number" id="second" value="1">
-				<label>Application protocols (separated with commas):</label>
+				<label>Application protocols (separated with ", "):</label>
 				Please note that http requests (not https) will not work if the file is not run locally, <b>putting http in that field is useless if you're using GitHub Pages</b>
 				<input type="text" id="mode" value="https">
 				<label>Minimum URL length (excluding domain and protocol):</label>

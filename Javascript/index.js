@@ -5,6 +5,7 @@ function findWebsites() {
 			count.innerHTML = `COUNT: ${i+1}/${times}`
 			const url = await url_generator()
 			url_show.innerHTML = `CHECKING: ${url}`
+			
 			try {
 				const response = await fetch(url, {mode: "no-cors"})
 				let li = document.createElement("LI")
@@ -14,13 +15,12 @@ function findWebsites() {
 				li.appendChild(a)
 				list.appendChild(li)
 			}
-			catch (e) {
-				let a = 0
-			}
+			catch (e) {} // No server for this URL
 		}
 
 		console.log('\nFinished at ' + String(new Date().getHours()) + 'h' + String(new Date().getMinutes()) + 'm')
 		status.innerHTML = "STATUS: STOPPED"
+		document.getElementById("btn").disabled = false
 	}
 
 	function url_generator() {
@@ -55,6 +55,7 @@ function findWebsites() {
 
 
 	status.innerHTML = "STATUS: ACTIVE"
+	document.getElementById("btn").disabled = true
 
 	main_loop()
 
