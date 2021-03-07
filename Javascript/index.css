@@ -4,6 +4,8 @@
 }
 
 body {
+	background-color: #112034;
+	color: white;
 	display: flex;
 }
 
@@ -14,6 +16,7 @@ input[type="button"] {
 }
 
 #rest {
+	background-color: #000;
 	width: 40%;
 	border: solid 1px;
 	margin-right: 10%;
@@ -34,6 +37,7 @@ form * {
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: black;
+	border: solid 1px;
 }
 
 ul {
