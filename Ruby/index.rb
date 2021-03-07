@@ -3,14 +3,14 @@ require 'json'
 
 def main_loop
 	json_object = []
-	TIMES.times do
+	TIMES.times do |i|
 		url = url_generator()
-		puts(url) if LOG
+		puts("#{url} (#{i + 1}/#{TIMES})") if LOG
 		begin
 			response = Net::HTTP.get_response(URI(url))
 			puts("#{url} exists!")
 			json_object << Hash["website_url" => url, "response_type" => "SUCCESS", "response_code" => response.code, "response_details" => response.message]
-		rescue Exception => e # Unlike JS/PY, the number of existing websites that raise exceptions is small
+		rescue Exception => e # Unlike Node/PY, the number of existing websites that raise exceptions is small
 			if e.class != SocketError
 				puts("#{url} exists!")
 				json_object << Hash["website_url" => url, "response_type" => "ERROR", "response_code" => e.class.to_s, "response_details" => e.to_s]

@@ -11,7 +11,7 @@ Each script has its own requirements.
 * index.py, the Python script, requires [Python 3](https://www.python.org/downloads/)
 * index.js, the Node.js script, requires [Node.js](https://nodejs.org/en/download/)
 * index.rb, the Ruby script, requires [Ruby](https://rubyinstaller.org/downloads/)
-* index.html, the Javascript script within a HTML webpage, only requires a web browser supporting [JS](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript)
+* index.html, which runs a Javascript script within a HTML webpage, only requires a web browser supporting [JS](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript)
 
 ## HOW TO RUN
 
@@ -46,7 +46,7 @@ You can use arguments by launching the scripts through the command-line.
 * "-t" defaults to 3000.
 * "-d" defaults to a lot of popular top-level domains.
 * "-m" defaults to "http", but the Javascript script defaults to "https" due to [requests made with the "http" application protocol being blocked when not run locally](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content).
-* "-l" makes it so URLs will be logged.
+* "-l" is off by default.
 * "-s" defaults to 1.
 * "-MIN" defaults to 2.
 * "-MAX" defaults to 50.

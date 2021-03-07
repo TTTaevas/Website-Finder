@@ -5,7 +5,7 @@ const fs = require('fs')
 async function main_loop() {
 	json_object = []
 	for (let i = 0; i < times; i++) {
-		const url = await url_generator()
+		const url = await url_generator(i, times)
 		try {
 			const response = await fetch(url)
 			console.log(`${url} exists!`)
@@ -22,26 +22,26 @@ async function main_loop() {
 	console.log('\nFinished at ' + String(new Date().getHours()) + 'h' + String(new Date().getMinutes()) + 'm')
 }
 
-function url_generator() {
+function url_generator(num_url, times) {
 	let result = mode[Math.round(Math.random() * (mode.length - 1))] + "://"
 	const characters = "abcdefghijklmnopqrstuvwxyz0123456789"
 	const url_length = Math.floor(Math.random() * (maxi - mini) + mini)
 	for (let i = 0; i < url_length; i++) {result += characters.charAt(Math.floor(Math.random() * characters.length))}
 	result += domains[Math.floor(Math.random() * domains.length)]
 	if (Math.floor(Math.random() * (100 - 1) + 1) <= second) result += domains[Math.floor(Math.random() * domains.length)]
-	if (log) console.log(result)
+	if (log) console.log(`${result} (${num_url + 1}/${times})`)
 	return result
 }
 
 function fetch(url, options = {}) {
 	return new Promise((resolve, reject) => {
-		if (!url) return reject(new Error('URL was not provided')) //Cannot happen, line may end up getting removed
+		if (!url) return reject(new Error('URL was not provided')) // Cannot happen; exists just for the sake of it
 
 		const {body, method = 'GET', ...restOptions} = options
 		const client = url.startsWith('https') ? https : http
 		const request = client.request(url, {method, ...restOptions}, (res) => {
 			res.setEncoding('utf8')
-			res.on('data', (chunk) => {}) //Do nothing, it must handle receiving data but we do not need the received data
+			res.on('data', (chunk) => {}) // Do nothing, it must handle receiving data but we do not need the received data
 			res.on('end', () => {resolve({statusCode: res.statusCode, statusMessage: res.statusMessage})})
 		})
 		request.on('error', (err) => {reject(err)})

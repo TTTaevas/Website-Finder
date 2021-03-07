@@ -6,7 +6,7 @@ import urllib.request
 def main_loop():
 	json_object = []
 	for i in range(times):
-		url = url_generator()
+		url = url_generator(i, times)
 		try:
 			response = urllib.request.urlopen(url)
 			print(url + " exists!")
@@ -21,14 +21,14 @@ def main_loop():
 	f.close()
 	print("Finished at " + str(datetime.datetime.now().time())[0:5].replace(":", "h") + "m")
 
-def url_generator():
+def url_generator(num_url, times):
 	result = mode[random.randint(0, len(mode) - 1)] + "://"
 	characters = "abcdefghijklmnopqrstuvwxyz0123456789"
 	url_length = random.randint(mini, maxi)
 	result += ''.join(random.choice(characters) for i in range(url_length))
 	result += domains[random.randint(0, len(domains) - 1)]
 	if random.randint(1, 100) <= second: result += domains[random.randint(0, len(domains) - 1)]
-	if log: print(result)
+	if log: print(result +  " (" + str(num_url + 1) + "/" + str(times) + ")")
 	return result
 
 times = int(sys.argv[sys.argv.index('-t') + 1]) if '-t' in sys.argv else 3000
@@ -36,7 +36,7 @@ domains = sys.argv[sys.argv.index('-d') + 1].split(",") if '-d' in sys.argv else
 mode = sys.argv[sys.argv.index('-m') + 1].split(",") if '-m' in sys.argv else ['http']
 log = '-l' in sys.argv
 mini = int(sys.argv[sys.argv.index('-MIN') + 1]) if '-MIN' in sys.argv else 2
-maxi = int(sys.argv[sys.argv.index('-MAX') + 1]) if '-MAX' in sys.argv else 50 #Python cannot look for URLs longer than 50ish, so be careful!
+maxi = int(sys.argv[sys.argv.index('-MAX') + 1]) if '-MAX' in sys.argv else 50 # Python cannot look for URLs longer than 50ish, so be careful!
 second = int(sys.argv[sys.argv.index('-s') + 1]) if '-s' in sys.argv else 1
 
 print("\nI am going to look for websites through " + str(times) + " random URLs (min length " + str(mini) + " and max length " + str(maxi) + ") with the following domains: " + str(domains))
