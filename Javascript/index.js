@@ -14,6 +14,7 @@ function findWebsites() {
 				a.href = url
 				li.appendChild(a)
 				list.appendChild(li)
+				audio.play()
 			}
 			catch (e) {} // No server for this URL
 		}
@@ -32,6 +33,8 @@ function findWebsites() {
 		if (Math.floor(Math.random() * (100 - 1) + 1) <= second) result += domains[Math.floor(Math.random() * domains.length)]
 		return result
 	}
+
+	const audio = new Audio("found.mp3")
 
 	const times = document.getElementById("times").value ? Math.round(Number(document.getElementById("times").value)) : 3000
 	const domains = document.getElementById("domains").value ? document.getElementById("domains").value.split(", ") : ['.co', '.com', '.net', '.edu', '.gov', '.cn', '.org', '.cc', '.us', '.mil', '.ac', '.it', '.de']
