@@ -12,9 +12,9 @@ async function main_loop() {
 			json_object.push(`{"website_url":"${url}","response_type":"SUCCESS","response_code":"${String(response.statusCode)}","response_details":"${String(response.statusMessage)}"}`)
 		}
 		catch(e) {
-			if (e.errno != 'ENOTFOUND') {
+			if (e.code != 'ENOTFOUND') {
 				console.log(`${url} exists!`)
-				json_object.push(`{"website_url":"${url}","response_type":"ERROR","response_code":"${String(e.errno)}","response_details":"${String(e.syscall)}"}`)
+				json_object.push(`{"website_url":"${url}","response_type":"ERROR","response_code":"${String(e.code)}","response_details":"${String(e.syscall)}"}`)
 			}
 		}
 	}
