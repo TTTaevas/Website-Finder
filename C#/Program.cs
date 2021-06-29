@@ -9,15 +9,21 @@ using System.Linq;
 
 class WebRequests
 {	
-	public static void Main()
+	public static void Main(string[] args)
 	{
-		int times = 3000;
-		string[] domains = new string[]{".co", ".com", ".net", ".edu", ".gov", ".cn", ".org", ".cc", ".us", ".mil", ".ac", ".it", ".de"};
-		string[] mode = new string[]{"http", "https"};
-		bool log = true;
-		int mini = 2;
-		int maxi = 50;
-		int second = 1;
+		int times = Array.IndexOf(args, "-t") > -1 ? int.Parse(args[Array.IndexOf(args, "-t") + 1]) : 3000;
+		string[] domains = Array.IndexOf(args, "-d") > -1 ? args[Array.IndexOf(args, "-d") + 1].Split(",") : new string[]{".co", ".com", ".net", ".edu", ".gov", ".cn", ".org", ".cc", ".us", ".mil", ".ac", ".it", ".de"};
+		string[] mode = Array.IndexOf(args, "-m") > -1 ? args[Array.IndexOf(args, "-m") + 1].Split(",") : new string[]{"http"};
+		bool log = Array.IndexOf(args, "-l") > -1;
+		int mini = Array.IndexOf(args, "-MIN") > -1 ? int.Parse(args[Array.IndexOf(args, "-MIN") + 1]) : 2;
+		int maxi = Array.IndexOf(args, "-MAX") > -1 ? int.Parse(args[Array.IndexOf(args, "-MAX") + 1]) : 50;
+		int second = Array.IndexOf(args, "-s") > -1 ? int.Parse(args[Array.IndexOf(args, "-s") + 1]) : 1;
+
+		DateTime time = DateTime.Now;
+
+		Console.WriteLine($"\nI am going to look for websites through {times} random URLs (min length {mini} and max length {maxi}) with the following domains: {String.Join(", ", domains)}");
+		Console.WriteLine($"These URLs will use the protocols {String.Join(", ", mode)} and each of them have {second} in a 100 chance to have a second level domain.");
+		Console.WriteLine($"Started at {time.Hour}h{time.Minute}m\n");
 
 		List<data> _data = new List<data>();
 
@@ -65,8 +71,9 @@ class WebRequests
 			}
 		}
 
+		string json_file_name = $"C#_report_{time.Day}{time.Hour}{time.Minute}.json";
 		string json = JsonSerializer.Serialize(_data);
-		File.WriteAllText("C#_report.json", json);
+		File.WriteAllText(json_file_name, json);
 	}
 
 	public class data

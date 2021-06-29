@@ -12,16 +12,23 @@ Each script has its own requirements.
 * index.js, the Node.js script, requires [Node.js](https://nodejs.org/en/download/)
 * index.rb, the Ruby script, requires [Ruby](https://rubyinstaller.org/downloads/)
 * index.html, which runs a Javascript script within a HTML webpage, only requires a web browser supporting [JS](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript)
+* Program.cs, the C# script, requires [.NET SDK](https://dotnet.microsoft.com/download) **to be built**
+
+An already built C# script for Windows (x64) that doesn't have any requirement is available in this repository's releases. (C#.exe in win-x64)
 
 ## HOW TO RUN
 
-You can run the Python or Ruby script by simply double clicking on it or going into the command-line, moving into the right directory and entering the file name.
+You can run the Python, the (built) C# script or the Ruby script by simply double clicking on it or going into the command-line, moving into the right directory and entering the file name.
 
-To run the Node.js script, you will have to use the command-line.
+To run the Node.js script or the (unbuilt) C# script, you will have to use the command-line.
 
 ```sh
 $ cd Website-Finder/Node.js
 $ node index.js
+```
+```sh
+$ cd Website-Finder/C#
+$ dotnet run
 ```
 
 For the Javascript script, you can: 
@@ -62,6 +69,9 @@ $ index.rb -MAX 7 -t 500 -MIN 5 -m http,https -l -s 30 -d .com,.fr
 
 # To make the Node.js script go through 3000 URLs in HTTPS with various top-level domains with logging:
 $ node index.js -m https -l
+
+# To make the (built) C# script go through 100 URLs with the .com top-level domains with a 0% chance for each URL to feature a second level domain without logging:
+$ C#.exe -d .com -s 0
 ```
 
 ## REPORTS
