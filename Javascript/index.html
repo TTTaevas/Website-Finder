@@ -12,18 +12,18 @@
 			<form>
 				<input type="button" id="btn" onclick="findWebsites()" value="Find websites!">
 				<label>Number of URLs to check:</label>
-				<input type="number" id="times" value="3000">
-				<label>Domains to check (separated with commas):</label>
-				<input type="text" id="domains" value=".co, .com, .net, .edu, .gov, .cn, .org, .cc, .us, .mil, .ac, .it, .de">
-				<label>Chances out of 100 for a URL to have two domains:</label>
-				<input type="number" id="second" value="1">
+				<input type="number" id="times" value="2000">
 				<label>Application protocols (separated with ", "):</label>
-				Please note that http requests (not https) will not work if the file is not run locally, <b>putting http in that field is useless if you're using GitHub Pages</b>
-				<input type="text" id="mode" value="https">
+				Please note that http requests (not https) will not work if the page is loaded on a HTTPS website, <b>putting http in that field is useless if you're using GitHub Pages</b>
+				<input type="text" id="protocols" value="https">
+				<label>Domains to check (separated with ", "):</label>
+				<input type="text" id="domains" value="com, org, net, tk, cn, de, ru, uk, nl, ca, au, in, ir, tv, live, gov, edu">
+				<label>Chances out of 100 for a URL to have two domains:</label>
+				<input type="number" id="second" value="0">
 				<label>Minimum URL length (excluding domain and protocol):</label>
-				<input type="number" id="mini" value="2">
+				<input type="number" id="min" value="2">
 				<label>Maximum URL length (excluding domain and protocol):</label>
-				<input type="number" id="maxi" value="50">
+				<input type="number" id="max" value="15">
 			</form>
 			<p>STATUS: STOPPED</p>
 			<p>COUNT:</p>

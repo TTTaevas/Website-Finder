@@ -12,17 +12,17 @@ class WebRequests
 	public static void Main(string[] args)
 	{
 		int times = Array.IndexOf(args, "-t") > -1 ? int.Parse(args[Array.IndexOf(args, "-t") + 1]) : 3000;
+		string[] protocols = Array.IndexOf(args, "-p") > -1 ? args[Array.IndexOf(args, "-p") + 1].Split(",") : new string[]{"http"};
 		string[] domains = Array.IndexOf(args, "-d") > -1 ? args[Array.IndexOf(args, "-d") + 1].Split(",") : new string[]{".co", ".com", ".net", ".edu", ".gov", ".cn", ".org", ".cc", ".us", ".mil", ".ac", ".it", ".de"};
-		string[] mode = Array.IndexOf(args, "-m") > -1 ? args[Array.IndexOf(args, "-m") + 1].Split(",") : new string[]{"http"};
-		bool log = Array.IndexOf(args, "-l") > -1;
-		int mini = Array.IndexOf(args, "-MIN") > -1 ? int.Parse(args[Array.IndexOf(args, "-MIN") + 1]) : 2;
-		int maxi = Array.IndexOf(args, "-MAX") > -1 ? int.Parse(args[Array.IndexOf(args, "-MAX") + 1]) : 50;
 		int second = Array.IndexOf(args, "-s") > -1 ? int.Parse(args[Array.IndexOf(args, "-s") + 1]) : 1;
+		bool log = Array.IndexOf(args, "-l") > -1;
+		int min = Array.IndexOf(args, "-MIN") > -1 ? int.Parse(args[Array.IndexOf(args, "-MIN") + 1]) : 2;
+		int max = Array.IndexOf(args, "-MAX") > -1 ? int.Parse(args[Array.IndexOf(args, "-MAX") + 1]) : 50;
 
 		DateTime time = DateTime.Now;
 
-		Console.WriteLine($"\nI am going to look for websites through {times} random URLs (min length {mini} and max length {maxi}) with the following domains: {String.Join(", ", domains)}");
-		Console.WriteLine($"These URLs will use the protocols {String.Join(", ", mode)} and each of them have {second} in a 100 chance to have a second level domain.");
+		Console.WriteLine($"\nI am going to look for websites through {times} random URLs (min length {min} and max length {max}) with the following domains: {String.Join(", ", domains)}");
+		Console.WriteLine($"These URLs will use the protocols {String.Join(", ", protocols)} and each of those URLs have {second} in a 100 chance to have a second level domain.");
 		Console.WriteLine($"Started at {time.Hour}h{time.Minute}m\n");
 
 		List<data> _data = new List<data>();
@@ -30,7 +30,7 @@ class WebRequests
 		for (int i = 0; i < times; i++)
 		{
 
-			string url = RandomURL(domains, mode, mini, maxi, second);
+			string url = RandomURL(domains, protocols, min, max, second);
 			if (log) Console.WriteLine($"{url} ({i+1}/{times})");
 
 			try
@@ -85,12 +85,12 @@ class WebRequests
 	}
 
 	private static Random random = new Random();
-	public static string RandomURL(string[] d, string[] m, int mini, int maxi, int second)
+	public static string RandomURL(string[] d, string[] p, int min, int max, int second)
 	{
 		const string chars = "abcdefghijklmnopqrstuvwyxz0123456789";
 
-		string full_url = m[random.Next(m.Length)] + "://"; // Mode (http/https)
-		full_url += new string (Enumerable.Repeat(chars, random.Next(mini, maxi))
+		string full_url = p[random.Next(m.Length)] + "://"; // protocols (http/https)
+		full_url += new string (Enumerable.Repeat(chars, random.Next(min, max))
 		.Select(s => s[random.Next(s.Length)]).ToArray()); // Domain name (abc69)
 		full_url += d[random.Next(d.Length)]; // Top-level domain (.fr)
 		if (random.Next(100) <= second) full_url += d[random.Next(d.Length)]; // Second-level domain (.co)
