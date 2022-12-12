@@ -1,0 +1,30 @@
+{
+	"times": 2000,
+	"protocols": [
+		"http"
+	],
+	"domains": [
+		"com",
+		"org",
+		"net",
+		"tk",
+		"cn",
+		"de",
+		"ru",
+		"uk",
+		"nl",
+		"ca",
+		"au",
+		"in",
+		"ir",
+		"cc",
+		"tv",
+		"live",
+		"gov",
+		"edu"
+	],
+	"second": 0,
+	"log": false,
+	"min": 2,
+	"max": 15
+}

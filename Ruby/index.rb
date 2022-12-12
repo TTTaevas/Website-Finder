@@ -25,23 +25,24 @@ def url_generator()
 	result = PROTOCOLS[rand(0...PROTOCOLS.length)] + '://'
 	url_length = rand(MIN..MAX)
 	result += rand(36 ** url_length).to_s(36)
-	result += DOMAINS[rand(0...DOMAINS.length)] if rand(1...100) <= SECOND
-	result += DOMAINS[rand(0...DOMAINS.length)]
+	result += "." + DOMAINS[rand(0...DOMAINS.length)] if rand(1...100) <= SECOND
+	result += "." + DOMAINS[rand(0...DOMAINS.length)]
 end
 
-TIMES = ARGV.include?('-t') ? ARGV[ARGV.index('-t') + 1].to_i : 3000
-PROTOCOLS = ARGV.include?('-p') ? ARGV[ARGV.index('-p') + 1].split(",") : ['http']
-DOMAINS = ARGV.include?('-d') ? ARGV[ARGV.index('-d') + 1].split(",") : ['.co', '.com', '.net', '.edu', '.gov', '.cn', '.org', '.cc', '.us', '.mil', '.ac', '.it', '.de']
-SECOND = ARGV.include?('-s') ? ARGV[ARGV.index('-s') + 1].to_i : 1
-LOG = ARGV.index('-l').class == Integer
-MIN = ARGV.include?('-min') ? ARGV[ARGV.index('-max') + 1].to_i : 2
-MAX = ARGV.include?('-min') ? ARGV[ARGV.index('-max') + 1].to_i : 50
+DEFAULTS = JSON.parse(File.read("../defaults.json"))
+TIMES = ARGV.include?('-t') ? ARGV[ARGV.index('-t') + 1].to_i : DEFAULTS["times"]
+PROTOCOLS = ARGV.include?('-p') ? ARGV[ARGV.index('-p') + 1].split(",") : DEFAULTS["protocols"]
+DOMAINS = ARGV.include?('-d') ? ARGV[ARGV.index('-d') + 1].split(",") : DEFAULTS["domains"]
+SECOND = ARGV.include?('-s') ? ARGV[ARGV.index('-s') + 1].to_i : DEFAULTS["second"]
+LOG = ARGV.include?('-l') ? true : DEFAULTS["log"]
+MIN = ARGV.include?('-min') ? ARGV[ARGV.index('-min') + 1].to_i : DEFAULTS["min"]
+MAX = ARGV.include?('-max') ? ARGV[ARGV.index('-max') + 1].to_i : DEFAULTS["max"]
 
-REPORT_FILE = "RB_report_#{Time.new.day}#{Time.new.hour}#{Time.new.min}.json"
-
+DATE = Time.new
 puts("\nI am going to look for websites through #{TIMES} random URLs (min length #{MIN} and max length #{MAX}) with the following domains: #{DOMAINS}")
-puts("These URLs will use the protocols #{PROTOCOLS} and each of those URLs have #{SECOND} in 100 chance to have a second level domain.")
-puts("Started at #{Time.new.hour}h#{Time.new.min}m\n")
+puts("These URLs will use the protocols #{PROTOCOLS} and each of those URLs have #{SECOND} in 100 chance to have a second level domain")
+puts("Started at #{DATE.hour}h#{DATE.min}m\n")
 
+REPORT_FILE = "RB_report_#{DATE.day}#{DATE.hour}#{DATE.min}.json"
 File.open(REPORT_FILE, 'a+')
 main_loop

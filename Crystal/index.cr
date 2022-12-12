@@ -8,7 +8,7 @@ def main_loop(times, domains, protocols, log, min, max, second, report_file)
 		json.array do
 			i = 0
 			while i < times
-				url = url_generator(domains, protocols, min.as(UInt8), max.as(UInt8), second)
+				url = url_generator(domains, protocols, min, max, second)
 				puts "#{url} (#{i + 1}/#{times})" if log
 				client = HTTP::Client.new(URI.parse url)
 				client.connect_timeout = 40.seconds
@@ -46,7 +46,7 @@ end
 
 def url_generator(domains, protocols, min, max, second)
 	result = String.build do |str|
-		str << protocols[Random.rand(protocols.size)] + "://"
+		str << "#{protocols[Random.rand(protocols.size)]}://"
 		url_length = Random.rand(min..max)
 		characters = "abcdefghijklmnopqrstuvwxyz0123456789"
 		i = 0
@@ -54,19 +54,20 @@ def url_generator(domains, protocols, min, max, second)
 			str << characters[Random.rand(characters.size - 1)]	
 			i += 1
 		end
-		str << domains[Random.rand(domains.size)] if Random.rand(1..100) <= second
-		str << domains[Random.rand(domains.size)]
+		str << ".#{domains[Random.rand(domains.size)]}" if Random.rand(1..100) <= second
+		str << ".#{domains[Random.rand(domains.size)]}"
 	end
 	result
 end
 
-times = UInt32.new "3000"
-protocols = ["http"]
-domains = [".co", ".com", ".net", ".edu", ".gov", ".cn", ".org", ".cc", ".us", ".mil", ".ac", ".it", ".de"]
-second = UInt8.new "1"
-log = false
-min = UInt8.new "2"
-max = UInt8.new "50"
+defaults = JSON.parse(File.read("../defaults.json"))
+times = defaults["times"].as_i
+protocols = defaults["protocols"].as_a
+domains = defaults["domains"].as_a
+second = defaults["second"].as_i
+log = defaults["log"].as_bool
+min = defaults["min"].as_i
+max = defaults["max"].as_i
 
 OptionParser.parse do |parser|
 	parser.banner = "Website-Finder"
@@ -74,19 +75,19 @@ OptionParser.parse do |parser|
 		puts parser
 		exit 
 	end
-	parser.on("-t TIMES", "--times=TIMES", "Number of requests / DEFAULT: #{times}") {|p_times| times = p_times.to_u32}
+	parser.on("-t TIMES", "--times=TIMES", "Number of requests / DEFAULT: #{times}") {|p_times| times = p_times.to_i}
 	parser.on("-d DOMAINS", "--domains=DOMAINS", "Domains used in URLS, like: .com,.net,.gov / DEFAULT: #{domains}") {|p_domains| domains = p_domains.split(",")}
 	parser.on("-p protocols", "--protocols=PROTOCOLS", "You may choose between: http | https | http,https / DEFAULT: #{protocols}") {|p_protocols| protocols = p_protocols.split(",")}
 	parser.on("-l", "--log", "Log all requests / DEFAULT: #{log}") {log = true}
-	parser.on("", "--min=LENGTH", "Minimum length of URLs / DEFAULT: #{min}") {|p_length| min = p_length.to_u8}
-	parser.on("", "--max=LENGTH", "Maximum length of URLs / DEFAULT: #{max}") {|p_length| max = p_length.to_u8}
-	parser.on("-s SECOND", "--second=SECOND", "Likelihood of a URL featuring a second-level domain / DEFAULT: #{second}") {|p_second| second = p_second.to_u8}
+	parser.on("", "--min=LENGTH", "Minimum length of URLs / DEFAULT: #{min}") {|p_length| min = p_length.to_i}
+	parser.on("", "--max=LENGTH", "Maximum length of URLs / DEFAULT: #{max}") {|p_length| max = p_length.to_i}
+	parser.on("-s SECOND", "--second=SECOND", "Likelihood of a URL featuring a second-level domain / DEFAULT: #{second}") {|p_second| second = p_second.to_i}
 end
 
 date = Time.local
 puts "\nI am going to look for websites through #{times} random URLs (min length #{min} and max length #{max} with the following domains: #{domains}"
 puts "These URLs will use the protocols #{protocols}"
-puts "and each of those URLs have #{second} in a 100 chance to have a second level domain."
+puts "and each of those URLs have #{second} in a 100 chance to have a second level domain"
 puts "Started at #{date.hour}h#{date.minute}m\n"
 
 report_file = "CR_report_#{date.day}#{date.hour}#{date.minute}.json"
