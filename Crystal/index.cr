@@ -51,7 +51,7 @@ def url_generator(domains, protocols, min, max, second)
 		characters = "abcdefghijklmnopqrstuvwxyz0123456789"
 		i = 0
 		while i < url_length
-			str << characters[Random.rand(characters.size - 1)]	
+			str << characters[Random.rand(characters.size)]	
 			i += 1
 		end
 		str << ".#{domains[Random.rand(domains.size)]}" if Random.rand(1..100) <= second
