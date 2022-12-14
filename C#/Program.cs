@@ -7,76 +7,29 @@ using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
-class WebRequests
+class Script
 {	
 	public static void Main(string[] args)
 	{
 		int times = Array.IndexOf(args, "-t") > -1 ? int.Parse(args[Array.IndexOf(args, "-t") + 1]) : 3000;
-		string[] protocols = Array.IndexOf(args, "-p") > -1 ? args[Array.IndexOf(args, "-p") + 1].Split(",") : new string[]{"http"};
 		string[] domains = Array.IndexOf(args, "-d") > -1 ? args[Array.IndexOf(args, "-d") + 1].Split(",") : new string[]{".co", ".com", ".net", ".edu", ".gov", ".cn", ".org", ".cc", ".us", ".mil", ".ac", ".it", ".de"};
+		string[] protocols = Array.IndexOf(args, "-p") > -1 ? args[Array.IndexOf(args, "-p") + 1].Split(",") : new string[]{"http"};
 		int second = Array.IndexOf(args, "-s") > -1 ? int.Parse(args[Array.IndexOf(args, "-s") + 1]) : 1;
 		bool log = Array.IndexOf(args, "-l") > -1;
-		int min = Array.IndexOf(args, "-MIN") > -1 ? int.Parse(args[Array.IndexOf(args, "-MIN") + 1]) : 2;
-		int max = Array.IndexOf(args, "-MAX") > -1 ? int.Parse(args[Array.IndexOf(args, "-MAX") + 1]) : 50;
+		int min = Array.IndexOf(args, "-min") > -1 ? int.Parse(args[Array.IndexOf(args, "-min") + 1]) : 2;
+		int max = Array.IndexOf(args, "-max") > -1 ? int.Parse(args[Array.IndexOf(args, "-max") + 1]) : 50;
 
 		DateTime time = DateTime.Now;
 
 		Console.WriteLine($"\nI am going to look for websites through {times} random URLs (min length {min} and max length {max}) with the following domains: {String.Join(", ", domains)}");
-		Console.WriteLine($"These URLs will use the protocols {String.Join(", ", protocols)} and each of those URLs have {second} in a 100 chance to have a second level domain.");
+		Console.WriteLine($"These URLs will use the protocols {String.Join(", ", protocols)} and each of those URLs have {second} in a 100 chance to have a second level domain");
 		Console.WriteLine($"Started at {time.Hour}h{time.Minute}m\n");
 
-		List<data> _data = new List<data>();
-
-		for (int i = 0; i < times; i++)
-		{
-
-			string url = RandomURL(domains, protocols, min, max, second);
-			if (log) Console.WriteLine($"{url} ({i+1}/{times})");
-
-			try
-			{
-				WebRequest request = WebRequest.Create(url);
-				request.Credentials = CredentialCache.DefaultCredentials;
-				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-				// exists, save url and response
-				Console.WriteLine($"{url} exists! {response.StatusDescription}");
-				_data.Add(new data()
-				{
-					website_url = url,
-					response_type = "SUCCESS",
-					response_code = $"{(int)response.StatusCode}",
-					response_details = response.StatusDescription
-				});
-				response.Close();
-			}
-			catch (System.Net.WebException e)
-			{	
-				if (e.InnerException != null)
-				{
-					if (e.InnerException.InnerException != null)
-					{
-						if (e.InnerException.InnerException.GetType() != typeof(System.Net.Sockets.SocketException))
-						{ // exists, save url and exception
-							Console.WriteLine($"{url} exists! {e.InnerException.InnerException.GetType()}");
-							_data.Add(new data()
-							{
-								website_url = url,
-								response_type = "ERROR",
-								response_code = "UNKNOWN", // Haven't found out if there is a way to get the response code from host
-								response_details = $"{e.InnerException.InnerException.GetType()} | {e.Message}"
-							});
-						}
-					}
-				}
-			}
-		}
-
-		string json_file_name = $"C#_report_{time.Day}{time.Hour}{time.Minute}.json";
-		string json = JsonSerializer.Serialize(_data);
-		File.WriteAllText(json_file_name, json);
+		string report_file = $"C#_report_{time.Day}{time.Hour}{time.Minute}.json";
+		var success = Task.Run(async() => await main_loop(times, domains, protocols, log, min, max, second, report_file)).Result;
 	}
 
-	public class data
+	public class Website
 	{
 		public string website_url {get; set;}
 		public string response_type {get; set;}
@@ -89,11 +42,63 @@ class WebRequests
 	{
 		const string chars = "abcdefghijklmnopqrstuvwyxz0123456789";
 
-		string full_url = p[random.Next(m.Length)] + "://"; // protocols (http/https)
+		string full_url = p[random.Next(p.Length)] + "://";
 		full_url += new string (Enumerable.Repeat(chars, random.Next(min, max))
-		.Select(s => s[random.Next(s.Length)]).ToArray()); // Domain name (abc69)
-		full_url += d[random.Next(d.Length)]; // Top-level domain (.fr)
-		if (random.Next(100) <= second) full_url += d[random.Next(d.Length)]; // Second-level domain (.co)
+		.Select(s => s[random.Next(s.Length)]).ToArray());
+		full_url += d[random.Next(d.Length)];
+		if (random.Next(100) <= second) full_url += d[random.Next(d.Length)];
 		return full_url;
+	}
+
+	public static async Task<int> main_loop(int times, string[] domains, string[] protocols, bool log, int min, int max, int second, string report_file)
+	{
+		List<Website> json_object = new List<Website>();
+		HttpClient client = new HttpClient();
+
+		for (int i = 0; i < times; i++)
+		{
+			string url = RandomURL(domains, protocols, min, max, second);
+			if (log) Console.WriteLine($"{url} ({i+1}/{times})");
+
+			try
+			{
+				HttpResponseMessage response = await client.GetAsync(url);
+				Console.WriteLine($"{url} exists! (success)");
+				json_object.Add(new Website()
+				{
+					website_url = url,
+					response_type = "SUCCESS",
+					response_code = $"{(int)response.StatusCode}",
+					response_details = response.ReasonPhrase != null ? response.ReasonPhrase : "UNKNOWN"
+				});
+			}
+			catch (Exception e)
+			{	
+				if (e.InnerException != null)
+				{
+					if (e.InnerException.InnerException != null)
+					{
+						if (e.InnerException.InnerException.GetType() != typeof(System.Net.Sockets.SocketException))
+						{
+							Console.WriteLine($"{url} exists! (err)");
+							json_object.Add(new Website()
+							{
+								website_url = url,
+								response_type = "ERROR",
+								response_code = "UNKNOWN", // Haven't found out if there is a way to get the response code from host
+								response_details = $"{e.InnerException.InnerException.GetType()} | {e.Message}"
+							});
+						}
+					}
+				}
+			}
+		}
+
+		#pragma warning disable IL2026
+		string json = JsonSerializer.Serialize(json_object);
+		File.WriteAllText(report_file, json);
+		DateTime end_time = DateTime.Now;
+		Console.WriteLine($"\nFinished at {end_time.Hour}h{end_time.Minute}m");
+		return 1;
 	}
 }
