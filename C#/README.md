@@ -6,8 +6,13 @@
 
 ## HOW TO RUN
 
+To use arguments, you should add " -- " (without the ") before the first argument
+
 ```sh
 $ dotnet run
+
+# To make the script go through websites with both HTTP and HTTPS protocols
+$ dotnet run -- -p http,https
 ```
 
 ## OTHER STUFF

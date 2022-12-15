@@ -11,13 +11,21 @@ class Script
 {	
 	public static void Main(string[] args)
 	{
-		int times = Array.IndexOf(args, "-t") > -1 ? int.Parse(args[Array.IndexOf(args, "-t") + 1]) : 3000;
-		string[] domains = Array.IndexOf(args, "-d") > -1 ? args[Array.IndexOf(args, "-d") + 1].Split(",") : new string[]{".co", ".com", ".net", ".edu", ".gov", ".cn", ".org", ".cc", ".us", ".mil", ".ac", ".it", ".de"};
-		string[] protocols = Array.IndexOf(args, "-p") > -1 ? args[Array.IndexOf(args, "-p") + 1].Split(",") : new string[]{"http"};
-		int second = Array.IndexOf(args, "-s") > -1 ? int.Parse(args[Array.IndexOf(args, "-s") + 1]) : 1;
-		bool log = Array.IndexOf(args, "-l") > -1;
-		int min = Array.IndexOf(args, "-min") > -1 ? int.Parse(args[Array.IndexOf(args, "-min") + 1]) : 2;
-		int max = Array.IndexOf(args, "-max") > -1 ? int.Parse(args[Array.IndexOf(args, "-max") + 1]) : 50;
+		Defaults defaults = new Defaults();
+		using (StreamReader r = new StreamReader("../defaults.json"))
+		{
+			string json = r.ReadToEnd();
+			#pragma warning disable IL2026
+			defaults = JsonSerializer.Deserialize<Defaults>(json);
+		}
+
+		int times = Array.IndexOf(args, "-t") > -1 ? int.Parse(args[Array.IndexOf(args, "-t") + 1]) : defaults.times;
+		string[] domains = Array.IndexOf(args, "-d") > -1 ? args[Array.IndexOf(args, "-d") + 1].Split(",") : defaults.domains;
+		string[] protocols = Array.IndexOf(args, "-p") > -1 ? args[Array.IndexOf(args, "-p") + 1].Split(",") : defaults.protocols;
+		int second = Array.IndexOf(args, "-s") > -1 ? int.Parse(args[Array.IndexOf(args, "-s") + 1]) : defaults.second;
+		bool log = Array.IndexOf(args, "-l") > -1 ? true : defaults.log;
+		int min = Array.IndexOf(args, "-min") > -1 ? int.Parse(args[Array.IndexOf(args, "-min") + 1]) : defaults.min;
+		int max = Array.IndexOf(args, "-max") > -1 ? int.Parse(args[Array.IndexOf(args, "-max") + 1]) : defaults.max;
 
 		DateTime time = DateTime.Now;
 
@@ -29,6 +37,16 @@ class Script
 		var success = Task.Run(async() => await main_loop(times, domains, protocols, log, min, max, second, report_file)).Result;
 	}
 
+	public class Defaults
+	{
+		public int times {get; set;}
+		public string[] protocols {get; set;}
+		public string[] domains {get; set;}
+		public int second {get; set;}
+		public bool log {get; set;}
+		public int min {get; set;}
+		public int max {get; set;}
+	}
 	public class Website
 	{
 		public string website_url {get; set;}
@@ -45,8 +63,8 @@ class Script
 		string full_url = p[random.Next(p.Length)] + "://";
 		full_url += new string (Enumerable.Repeat(chars, random.Next(min, max))
 		.Select(s => s[random.Next(s.Length)]).ToArray());
-		full_url += d[random.Next(d.Length)];
-		if (random.Next(100) <= second) full_url += d[random.Next(d.Length)];
+		full_url += "." + d[random.Next(d.Length)];
+		if (random.Next(100) <= second) full_url += "." + d[random.Next(d.Length)];
 		return full_url;
 	}
 
@@ -63,7 +81,7 @@ class Script
 			try
 			{
 				HttpResponseMessage response = await client.GetAsync(url);
-				Console.WriteLine($"{url} exists! (success)");
+				Console.WriteLine($"{url} exists!");
 				json_object.Add(new Website()
 				{
 					website_url = url,
@@ -80,7 +98,7 @@ class Script
 					{
 						if (e.InnerException.InnerException.GetType() != typeof(System.Net.Sockets.SocketException))
 						{
-							Console.WriteLine($"{url} exists! (err)");
+							Console.WriteLine($"{url} exists!");
 							json_object.Add(new Website()
 							{
 								website_url = url,
