@@ -28,15 +28,15 @@
 			<form class="container">
 				<div class="row">
 					<div class="col col-lg-3 col-12 form-floating">
-						<input class="form-control" type="number" id="times" value="2000" placeholder="">
+						<input class="form-control" type="number" id="times" value="1000" placeholder="">
 						<label>Number of URLs to check</label>
 					</div>
 					<div class="col col-md col-12 form-floating">
-						<input class="form-control" placeholder="" type="number" id="min" value="2" placeholder="">
+						<input class="form-control" placeholder="" type="number" id="min" value="4" placeholder="">
 						<label>Min domain length (excl. TLD)</label>
 					</div>
 					<div class="col col-md col-12 form-floating">
-						<input class="form-control" placeholder="" type="number" id="max" value="15" placeholder="">
+						<input class="form-control" placeholder="" type="number" id="max" value="6" placeholder="">
 						<label>Max domain length (excl. TLD)</label>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					</div>
 					<div class="col col-lg col-md-9 col-12 form-floating">
 						<input class="form-control" placeholder="" type="text" id="domains"
-						value="com, org, net, tk, cn, de, ru, uk, nl, ca, au, in, ir, tv, live, gov, edu" placeholder="">
+						value="com, org, net, fr, de, xyz, cn, de, ua, ru, nl, in, tv, live" placeholder="">
 						<label>TLDs to check</label>
 					</div>
 				</div>
@@ -57,17 +57,20 @@
 						<label>Chances out of 100 for a URL to have two TLDs</label>
 					</div>
 				</div>
-				<input type="button" id="btn" onclick="findWebsites()" value="Find websites!">
+				<input type="button" id="btn" value="Find websites!">
 			</form>
 		</div>
-		<div id="status" class="row">
-			<div id="progress" class="col">
-				<p>STATUS: STOPPED</p>
-				<p>COUNT:</p>
-				<p>CHECKING:</p>
+		<div id="status" class="row" style="display: none;">
+			<div id="progress" class="col col-sm-12">
+				<p id="log_start"></p>
+				<p id="log_length"></p>
+				<p id="log_protocols"></p>
+				<p id="log_tlds"></p>
+				<p id="log_count"></p>
+				<p id="log_checking"></p>
 			</div>
 			<div id="list" class="col">
-				<ul>
+				<ul id="actual_list">
 					
 				</ul>
 			</div>

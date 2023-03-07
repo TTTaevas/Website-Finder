@@ -6,6 +6,7 @@
 body {
 	background-color: #112034;
 	color: white;
+	overflow-x: hidden;
 }
 
 #presentation {
@@ -32,10 +33,16 @@ label {
 	color: black;
 }
 
-input[type="button"] {
+#btn {
 	padding: 40px;
 	margin: 10px;
 	font-size: 50px;
+}
+
+@media screen and (max-width: 700px) {
+	#btn {
+		font-size: 4.5vw;
+	}
 }
 
 #finder, #status {
@@ -44,38 +51,85 @@ input[type="button"] {
 	width: 80vw;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 20px;
 }
 
 #finder {
 	background-color: #00000075;
 	margin-bottom: 20px;
-}
-
-#status {
-	background-color: #030715a3;
+	padding: 20px;
 }
 
 #finder .row {
 	margin: 15px;
 }
 
+#status {
+	background-color: #030715a3;
+	overflow-x: hidden;
+}
+
+#status > * {
+	margin: 20px
+}
+
+#progress {
+	width: 200px;
+}
+
+#progress > * {
+	text-align: left;
+}
+
+#log_checking {
+	width: 0;
+}
+
 #list {
 	flex: auto;
 	width: 600px;
-	height: 500px;
+	height: 50vh;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: black;
+	background-color: #0000006e;
 	border: solid 1px;
 }
 
-ul {
+#actual_list {
 	padding: 0px;
+}
+
+#list a {
+	color: white;
+}
+#list a:visited {
+	color: grey;
 }
 
 li {
 	list-style: none;
 	font-size: 20px;
 	margin: 10px;
+}
+
+/* https://stackoverflow.com/a/23635565 */
+@-webkit-keyframes borderBlink {    
+	from, to {    
+			border-color: transparent    
+	}    
+	50% {    
+			border-color: white    
+	}    
+}    
+@keyframes borderBlink {    
+	from, to {    
+			border-color: transparent    
+	}    
+	50% {    
+			border-color: white    
+	}    
+}
+.in_progress {
+	border-left: 5px solid;
+	-webkit-animation: borderBlink 2s step-end infinite;    
+	animation: borderBlink 2s step-end infinite;    
 }
