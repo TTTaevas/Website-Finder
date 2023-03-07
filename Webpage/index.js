@@ -43,7 +43,7 @@ function findWebsites() {
 	const min = document.getElementById("min").value ? Math.round(Number(document.getElementById("min").value)) : 2
 	const max = document.getElementById("max").value ? Math.round(Number(document.getElementById("max").value)) : 15
 
-	const list = document.getElementsByTagName("UL")[0]
+	const list = document.getElementById("list").getElementsByTagName("UL")[0]
 	const status = document.getElementsByTagName("P")[0]
 	const count = document.getElementsByTagName("P")[1]
 	const url_show = document.getElementsByTagName("P")[2]
@@ -61,5 +61,4 @@ function findWebsites() {
 	document.getElementById("btn").disabled = true
 
 	main_loop()
-
 }

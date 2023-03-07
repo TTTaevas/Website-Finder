@@ -1,0 +1,81 @@
+* {
+	text-align: center;
+	font-family: 'Gugi', sans-serif;
+}
+
+body {
+	background-color: #112034;
+	color: white;
+}
+
+#presentation {
+	background-color: #080833;
+	border-bottom: 1px solid #888;
+	padding-top: 5px;
+	margin-bottom: 20px;
+}
+
+#presentation p {
+	margin-bottom: 0;
+}
+
+#presentation a {
+	color: white;
+}
+
+#presentation a:hover {
+	color: greenyellow;
+	line-height: 1em;
+}
+
+label {
+	color: black;
+}
+
+input[type="button"] {
+	padding: 40px;
+	margin: 10px;
+	font-size: 50px;
+}
+
+#finder, #status {
+	border: solid 1px;
+	border-collapse: collapse;
+	width: 80vw;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+}
+
+#finder {
+	background-color: #00000075;
+	margin-bottom: 20px;
+}
+
+#status {
+	background-color: #030715a3;
+}
+
+#finder .row {
+	margin: 15px;
+}
+
+#list {
+	flex: auto;
+	width: 600px;
+	height: 500px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: black;
+	border: solid 1px;
+}
+
+ul {
+	padding: 0px;
+}
+
+li {
+	list-style: none;
+	font-size: 20px;
+	margin: 10px;
+}

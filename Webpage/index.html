@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Website-Finder</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="https://fonts.cdnfonts.com/css/gugi" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="./index.css">
+		<script type="text/javascript" src="./index.js"></script>
+	</head>
+	<body>
+		<div id="presentation">
+			<h1>Website-Finder</h1>
+			<p>Also available in:</p>
+			<nav class="nav nav-pills nav-fill">
+				<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/TTTaevas/Website-Finder/tree/master/C%23">C#</a>
+				<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/TTTaevas/Website-Finder/tree/master/Crystal">Crystal</a>
+				<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/TTTaevas/Website-Finder/tree/master/Go">Go</a>
+				<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/TTTaevas/Website-Finder/tree/master/Node.js">Node.js</a>
+				<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/TTTaevas/Website-Finder/tree/master/Python">Python</a>
+				<a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/TTTaevas/Website-Finder/tree/master/Ruby">Ruby</a>
+			</nav>
+		</div>
+		<div id="finder">
+			<form class="container">
+				<div class="row">
+					<div class="col col-lg-3 col-12 form-floating">
+						<input class="form-control" type="number" id="times" value="2000" placeholder="">
+						<label>Number of URLs to check</label>
+					</div>
+					<div class="col col-md col-12 form-floating">
+						<input class="form-control" placeholder="" type="number" id="min" value="2" placeholder="">
+						<label>Min domain length (excl. TLD)</label>
+					</div>
+					<div class="col col-md col-12 form-floating">
+						<input class="form-control" placeholder="" type="number" id="max" value="15" placeholder="">
+						<label>Max domain length (excl. TLD)</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-lg col-md-3 col-12 form-floating">
+						<input class="form-control" placeholder="" type="text" id="protocols" value="https" placeholder="">
+						<label>Application protocols</label>
+					</div>
+					<div class="col col-lg col-md-9 col-12 form-floating">
+						<input class="form-control" placeholder="" type="text" id="domains"
+						value="com, org, net, tk, cn, de, ru, uk, nl, ca, au, in, ir, tv, live, gov, edu" placeholder="">
+						<label>TLDs to check</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col col-lg-9 col-12 form-floating" style="margin-left: auto; margin-right: auto;">
+						<input class="form-control" placeholder="" type="number" id="second" value="0" placeholder="">
+						<label>Chances out of 100 for a URL to have two TLDs</label>
+					</div>
+				</div>
+				<input type="button" id="btn" onclick="findWebsites()" value="Find websites!">
+			</form>
+		</div>
+		<div id="status" class="row">
+			<div id="progress" class="col">
+				<p>STATUS: STOPPED</p>
+				<p>COUNT:</p>
+				<p>CHECKING:</p>
+			</div>
+			<div id="list" class="col">
+				<ul>
+					
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
