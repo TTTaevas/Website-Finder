@@ -2,7 +2,10 @@
 
 This version of Website-Finder differs a lot from the scripts available in this repository, as it runs in a web browser and uses external dependencies to look fancy
 
-The reason why is because this version is geared towards people who just want to look at something cool that does something cool, without the hassle of installing a new programming language
+The reason why is because this version is geared towards people who just want something cool-looking that does something cool, without the hassle of installing a new programming language
+
+![website-finder](https://user-images.githubusercontent.com/67872932/223705587-cc434c4b-9458-48fe-ae53-46f1aaf8f2bc.gif)
+
 
 ## HOW TO RUN
 
