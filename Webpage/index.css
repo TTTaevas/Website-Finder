@@ -29,20 +29,8 @@ body {
 	line-height: 1em;
 }
 
-label {
+#finder label {
 	color: black;
-}
-
-#btn {
-	padding: 40px;
-	margin: 10px;
-	font-size: 50px;
-}
-
-@media screen and (max-width: 700px) {
-	#btn {
-		font-size: 4.5vw;
-	}
 }
 
 #finder, #status {
@@ -61,6 +49,18 @@ label {
 
 #finder .row {
 	margin: 15px;
+}
+
+#search_btn {
+	padding: 40px;
+	margin: 10px;
+	font-size: 50px;
+}
+
+@media screen and (max-width: 700px) {
+	#search_btn {
+		font-size: 4.5vw;
+	}
 }
 
 #status {
@@ -84,33 +84,6 @@ label {
 	width: 0;
 }
 
-#list {
-	flex: auto;
-	width: 600px;
-	height: 50vh;
-	overflow-x: hidden;
-	overflow-y: auto;
-	background-color: #0000006e;
-	border: solid 1px;
-}
-
-#actual_list {
-	padding: 0px;
-}
-
-#list a {
-	color: white;
-}
-#list a:visited {
-	color: grey;
-}
-
-li {
-	list-style: none;
-	font-size: 20px;
-	margin: 10px;
-}
-
 /* https://stackoverflow.com/a/23635565 */
 @-webkit-keyframes borderBlink {    
 	from, to {    
@@ -132,4 +105,33 @@ li {
 	border-left: 5px solid;
 	-webkit-animation: borderBlink 2s step-end infinite;    
 	animation: borderBlink 2s step-end infinite;    
+}
+
+
+
+#list {
+	flex: auto;
+	width: 600px;
+	height: 50vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #0000006e;
+	border: solid 1px;
+}
+
+#actual_list {
+	padding: 0px;
+}
+
+#actual_list a {
+	color: white;
+}
+#actual_list a:visited {
+	color: grey;
+}
+
+#actual_list li {
+	list-style: none;
+	font-size: 20px;
+	margin: 10px;
 }

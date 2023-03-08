@@ -1,5 +1,5 @@
 $(function() {
-	$("#btn").click(findWebsites)
+	$("#search_btn").click(findWebsites)
 })
 
 function findWebsites() {
@@ -31,7 +31,7 @@ function findWebsites() {
 		$("#progress").removeClass("in_progress")
 
 		console.log("\nFinished at " + String(new Date().toLocaleTimeString()))
-		document.getElementById("btn").disabled = false
+		$("#search_btn").attr("disabled", false)
 	}
 
 	function url_generator() {
@@ -61,6 +61,6 @@ function findWebsites() {
 	console.log("Minimum length of URLs:", min)
 	console.log("Maximum length of URLs:", max)
 
-	document.getElementById("btn").disabled = true
+	$("#search_btn").attr("disabled", true)
 	main_loop()
 }

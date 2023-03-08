@@ -1,10 +1,12 @@
-# Website-Finder: Javascript
+# Website-Finder: Webpage
 
-While this is called Javascript, it also makes use of HTML (and CSS, somewhat)
+This version of Website-Finder differs a lot from the scripts available in this repository, as it runs in a web browser and uses external dependencies to look fancy
+
+The reason why is because this version is geared towards people who just want to look at something cool that does something cool, without the hassle of installing a new programming language
 
 ## HOW TO RUN
 
-It is already being run by [GitHub Pages](https://tttaevas.github.io/Website-Finder/Javascript/index.html), but you may run it yourself simply by opening [index.html](./index.html) in your web browser
+It is already being run on [finder.taevas.xyz](https://finder.taevas.xyz), but you may run it yourself simply by cloning the repository and opening index.html in your web browser
 
 Do note that using arguments and launching the search is done through the HTML, so you cannot use the cli/terminal to use arguments, and opening the file will not instantly trigger the search
 
@@ -25,13 +27,13 @@ $ open index.html
 
 Your web browser should be unable to create files on your computer, so unlike other scripts, no report in json is made
 
-Instead, a report is created in real time within the HTML, while the logging is done by the browser in its development tools
+Instead, a report is created in real time within the HTML, and some logging is done by the browser in its development tools
 
 ## REGARDING ARGUMENTS
 
-The GitHub Pages version cannot use HTTP due to [Mixed Content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content)
+If the page is served to you through HTTPS, you won't be able to use the HTTP application protocol due to [Mixed Content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content)
 
-The default arguments may not match the ones specified in [defaults.json](../defaults.json), as they have to be independent from each other
+The default arguments do not match the ones specified in [defaults.json](../defaults.json)
 
 ## OTHER STUFF
 
